@@ -35,3 +35,15 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def list_RelateEntries(name):
+    """
+    Returns a list of relate names of encyclopedia entries.
+    """
+    _, filenames = default_storage.listdir("entries")
+    ls  = list(sorted(re.sub(r"\.md$", "", filename)for filename in filenames if filename.endswith(".md")))
+
+    rl = [ filename for filename in ls if re.search(name,filename) is not None]
+
+    return rl
